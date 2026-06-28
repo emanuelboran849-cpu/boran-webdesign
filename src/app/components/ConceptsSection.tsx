@@ -1,47 +1,203 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { concepts } from "../data/siteContent";
+import { useEffect, useRef } from "react";
+import styles from "./ConceptsSection.module.css";
+
+type Principle = {
+  number: string;
+  label: string;
+  cardTag: string;
+  title: string;
+  description: string;
+  footer: string;
+  tone: string;
+};
+
+const principles: Principle[] = [
+  {
+    number: "01",
+    label: "Strategie vor Dekoration",
+    cardTag: "KLARHEIT",
+    title: "Nicht alles muss auffallen. Nur das Richtige.",
+    description:
+      "Bevor gestaltet wird, wird klar: Was soll ein Besucher verstehen — und welcher nächste Schritt soll sich selbstverständlich anfühlen?",
+    footer: "Klarheit vor dem ersten Pixel.",
+    tone: "red",
+  },
+  {
+    number: "02",
+    label: "Mobile ist der erste Eindruck",
+    cardTag: "MOBILE FIRST",
+    title: "Interesse beginnt oft unterwegs.",
+    description:
+      "Viele erste Kontakte entstehen auf dem Handy. Deshalb wird die mobile Version nicht später angepasst, sondern von Anfang an bewusst mitgedacht.",
+    footer: "Mobile ist kein Nebenformat.",
+    tone: "blue",
+  },
+  {
+    number: "03",
+    label: "Design mit Richtung",
+    cardTag: "ANFRAGEWEGE",
+    title: "Ein Auftritt führt. Er verwirrt nicht.",
+    description:
+      "Inhalte, Gestaltung und Anfragewege müssen zusammenspielen, damit aus Aufmerksamkeit ein klarer nächster Schritt werden kann.",
+    footer: "Von Interesse zu Anfrage.",
+    tone: "violet",
+  },
+  {
+    number: "04",
+    label: "Verantwortung bis ins Detail",
+    cardTag: "VERANTWORTUNG",
+    title: "Jede Website trägt auch meinen Namen.",
+    description:
+      "Jedes Projekt repräsentiert nicht nur ein Unternehmen, sondern auch meinen eigenen Anspruch an Qualität, Wirkung und Sorgfalt.",
+    footer: "Kein Projekt wie eine Vorlage.",
+    tone: "white",
+  },
+];
 
 export default function ConceptsSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const counterRef = useRef<HTMLSpanElement | null>(null);
+  const progressRef = useRef<HTMLSpanElement | null>(null);
+
+  useEffect(() => {
+    let animationFrame = 0;
+
+    const updateRail = () => {
+      animationFrame = 0;
+
+      const section = sectionRef.current;
+      const viewport = viewportRef.current;
+      const track = trackRef.current;
+
+      if (!section || !viewport || !track) return;
+
+      const rect = section.getBoundingClientRect();
+      const scrollDistance = Math.max(
+        1,
+        section.offsetHeight - window.innerHeight,
+      );
+
+      const progress = Math.min(
+        1,
+        Math.max(0, -rect.top / scrollDistance),
+      );
+
+      const travelDistance =
+        viewport.clientWidth * (principles.length - 1);
+
+      track.style.transform = `translate3d(${
+        -progress * travelDistance
+      }px, 0, 0)`;
+
+      const activeIndex = Math.min(
+        principles.length - 1,
+        Math.floor(progress * principles.length),
+      );
+
+      if (counterRef.current) {
+        counterRef.current.textContent = principles[activeIndex].number;
+      }
+
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`;
+      }
+    };
+
+    const handleScroll = () => {
+      if (!animationFrame) {
+        animationFrame = window.requestAnimationFrame(updateRail);
+      }
+    };
+
+    updateRail();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
   return (
-    <section id="konzepte" className="relative z-10 mx-auto max-w-7xl px-5 py-28">
-      <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-        <div>
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-blue-300">
-            Designkonzepte
-          </p>
-          <h2 className="max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">
-            Premium-Looks für lokale Dienstleister.
-          </h2>
+    <section ref={sectionRef} id="ablauf" className={styles.section}>
+      <div className={styles.sticky}>
+        <div className={styles.backgroundGlow} />
+
+        <header className={styles.heading}>
+                    <h2>Prinzipien.</h2>
+        </header>
+
+        <div ref={viewportRef} className={styles.viewport}>
+          <div ref={trackRef} className={styles.track}>
+            {principles.map((principle) => (
+              <article
+                key={principle.number}
+                className={styles.slide}
+                aria-label={`Prinzip ${principle.number}: ${principle.title}`}
+              >
+                <span className={styles.backgroundNumber} aria-hidden="true">
+                  {principle.number}
+                </span>
+
+                <div className={styles.leftContent}>
+                  <p>{principle.label}</p>
+                  <h3>{principle.title}</h3>
+                </div>
+
+                <div
+                  className={`${styles.card} ${
+                    styles[`tone${principle.tone}`]
+                  }`}
+                >
+                  <div className={styles.cardFrameOne} />
+                  <div className={styles.cardFrameTwo} />
+
+                  <div className={styles.cardTop}>
+                    <span>{principle.cardTag}</span>
+                    <span>
+                      {principle.number} / 04
+                    </span>
+                  </div>
+
+                  <span className={styles.cardNumber} aria-hidden="true">
+                    {principle.number}
+                  </span>
+
+                  <h3 className={styles.mobileCardTitle}>
+                    {principle.title}
+                  </h3>
+
+                  <span className={styles.cardBottom}>
+                    BORAN WEBDESIGN
+                  </span>
+                </div>
+
+                <div className={styles.rightContent}>
+                  <p>{principle.description}</p>
+                  <span>{principle.footer}</span>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
 
-        <p className="max-w-md text-white/55">
-          Beispielrichtungen für Branchen, die stark über Optik, Vertrauen und
-          direkten Kontakt verkaufen.
-        </p>
-      </div>
+        <div className={styles.scrollIndicator}>
+          <span>WEITER SCROLLEN</span>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-        {concepts.map((concept, index) => (
-          <motion.div
-            key={concept.title}
-            initial={{ opacity: 0, y: 35 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.08, duration: 0.6 }}
-            className="group min-h-[300px] rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 transition hover:-translate-y-2 hover:bg-white/[0.07]"
-          >
-            <div className="mb-20 h-32 rounded-3xl bg-gradient-to-br from-white/15 via-violet-500/20 to-blue-500/20 transition group-hover:scale-[1.03]" />
-            <p className="mb-3 text-xs uppercase tracking-[0.22em] text-white/35">
-              Designkonzept
-            </p>
-            <h3 className="text-2xl font-semibold">{concept.title}</h3>
-            <p className="mt-3 text-sm leading-6 text-white/55">
-              {concept.text}
-            </p>
-          </motion.div>
-        ))}
+          <div className={styles.progressLine}>
+            <span ref={progressRef} />
+          </div>
+
+          <strong ref={counterRef}>01</strong>
+          <span>/ 04</span>
+        </div>
       </div>
     </section>
   );

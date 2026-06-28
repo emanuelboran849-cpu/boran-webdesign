@@ -1,0 +1,450 @@
+.section {
+  position: relative;
+  height: 274svh;
+  background: #050506;
+  color: #f7f5f2;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 84% 14%, rgba(86, 103, 219, 0.11), transparent 27%),
+    radial-gradient(circle at 15% 92%, rgba(219, 34, 76, 0.1), transparent 28%),
+    #050506;
+}
+
+.backgroundGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.018) 50%,
+      transparent 100%
+    );
+}
+
+.heading {
+  position: absolute;
+  top: 12svh;
+  left: 50%;
+  z-index: 5;
+  width: min(92vw, 80rem);
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.heading p {
+  margin: 0;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.46);
+}
+
+.heading h2 {
+  margin: 1rem 0 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(5.7rem, 10vw, 10.5rem);
+  font-weight: 400;
+  line-height: 0.78;
+  letter-spacing: -0.09em;
+  color: #db3150;
+}
+
+.viewport {
+  position: absolute;
+  top: 31svh;
+  right: 0;
+  bottom: 10svh;
+  left: 0;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.slide {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(15rem, 1fr) minmax(20rem, 28rem) minmax(
+      15rem,
+      1fr
+    );
+  align-items: center;
+  gap: clamp(3rem, 6vw, 8rem);
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100%;
+  padding: 0 clamp(3rem, 8vw, 9rem);
+}
+
+.backgroundNumber {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(21rem, 31vw, 36rem);
+  font-weight: 400;
+  line-height: 0.7;
+  letter-spacing: -0.16em;
+  color: rgba(255, 255, 255, 0.045);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.leftContent,
+.rightContent,
+.card {
+  position: relative;
+  z-index: 1;
+}
+
+.leftContent {
+  max-width: 23rem;
+}
+
+.leftContent p {
+  margin: 0;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.leftContent h3 {
+  max-width: 8.5ch;
+  margin: 1.35rem 0 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.8rem, 4.35vw, 5.2rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+  color: #f8f6f2;
+}
+
+.card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2.6rem;
+  background:
+    radial-gradient(circle at 88% 14%, var(--glow), transparent 30%),
+    radial-gradient(circle at 12% 93%, var(--glow-soft), transparent 34%),
+    linear-gradient(145deg, #111116 0%, #070708 60%, #0b0b0d 100%);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.tonered {
+  --glow: rgba(222, 48, 81, 0.22);
+  --glow-soft: rgba(206, 31, 62, 0.15);
+  --accent: #e03a59;
+}
+
+.toneblue {
+  --glow: rgba(96, 124, 233, 0.22);
+  --glow-soft: rgba(80, 101, 209, 0.13);
+  --accent: #90a7ff;
+}
+
+.toneviolet {
+  --glow: rgba(151, 86, 223, 0.2);
+  --glow-soft: rgba(90, 47, 171, 0.14);
+  --accent: #c4a1ff;
+}
+
+.tonewhite {
+  --glow: rgba(255, 255, 255, 0.14);
+  --glow-soft: rgba(202, 207, 255, 0.1);
+  --accent: #ffffff;
+}
+
+.cardFrameOne,
+.cardFrameTwo {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 2.1rem;
+  pointer-events: none;
+}
+
+.cardFrameOne {
+  top: 11%;
+  right: 11%;
+  bottom: 11%;
+  left: 11%;
+  transform: rotate(-4deg);
+}
+
+.cardFrameTwo {
+  top: 18%;
+  right: 18%;
+  bottom: 18%;
+  left: 18%;
+  border-color: rgba(255, 255, 255, 0.06);
+  transform: rotate(6deg);
+}
+
+.cardTop {
+  position: absolute;
+  top: 1.45rem;
+  right: 1.5rem;
+  left: 1.5rem;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.53rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cardNumber {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(10rem, 17vw, 16rem);
+  font-weight: 400;
+  line-height: 0.65;
+  letter-spacing: -0.15em;
+  color: var(--accent);
+  opacity: 0.78;
+  transform: translate(-50%, -50%);
+}
+
+.cardBottom {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.45rem;
+  left: 1.5rem;
+  z-index: 3;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.mobileCardTitle {
+  display: none;
+}
+
+.rightContent {
+  max-width: 22rem;
+}
+
+.rightContent p {
+  margin: 0;
+  font-size: clamp(1rem, 1.23vw, 1.18rem);
+  line-height: 1.68;
+  color: rgba(255, 255, 255, 0.63);
+}
+
+.rightContent span {
+  display: block;
+  margin-top: 1.7rem;
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 4.8svh;
+  left: 50%;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 14rem;
+  transform: translateX(-50%);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.scrollIndicator strong {
+  color: #ffffff;
+}
+
+.progressLine {
+  position: relative;
+  width: 3.5rem;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.progressLine span {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: #db3150;
+  will-change: transform;
+}
+
+@media (max-width: 899px) {
+  .section {
+    height: 268svh;
+  }
+
+  .heading {
+    top: 17svh;
+    width: calc(100% - 2.6rem);
+  }
+
+  .heading p {
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+  }
+
+  .heading h2 {
+    margin-top: 0.85rem;
+    font-size: clamp(4.4rem, 17vw, 6.4rem);
+  }
+
+  .viewport {
+    top: 37svh;
+    bottom: 8svh;
+  }
+
+  .slide {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    align-content: center;
+    gap: 1rem;
+    padding: 0 1.4rem;
+  }
+
+  .backgroundNumber {
+    top: auto;
+    right: -0.14em;
+    bottom: -0.25em;
+    left: auto;
+    font-size: 15rem;
+    transform: none;
+  }
+
+  .leftContent {
+    display: none;
+  }
+
+  .card {
+    width: min(67vw, 18rem);
+    margin: 0 auto;
+    border-radius: 2rem;
+  }
+
+  .cardTop {
+    top: 1.15rem;
+    right: 1.15rem;
+    left: 1.15rem;
+    font-size: 0.47rem;
+    letter-spacing: 0.14em;
+  }
+
+  .cardFrameOne {
+    border-radius: 1.65rem;
+  }
+
+  .cardFrameTwo {
+    border-radius: 1.45rem;
+  }
+
+  .cardNumber {
+    top: 40%;
+    font-size: clamp(8rem, 31vw, 11rem);
+  }
+
+  .mobileCardTitle {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    z-index: 3;
+    display: block;
+    max-width: 11ch;
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 8.5vw, 2.8rem);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.07em;
+    color: #ffffff;
+  }
+
+  .cardBottom {
+    display: none;
+  }
+
+  .rightContent {
+    width: min(100%, 20rem);
+    max-width: none;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .rightContent p {
+    font-size: 0.95rem;
+    line-height: 1.52;
+    color: rgba(255, 255, 255, 0.67);
+  }
+
+  .rightContent span {
+    margin-top: 0.85rem;
+    font-size: 0.49rem;
+    letter-spacing: 0.15em;
+  }
+
+  .scrollIndicator {
+    bottom: 3.2svh;
+    min-width: 12rem;
+    font-size: 0.49rem;
+  }
+
+  .progressLine {
+    width: 2.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transform: none !important;
+  }
+}
+/* Toate cifrele din carduri — aceeași culoare ca titlul „Prinzipien.” */
+
+.cardNumber {
+  color: #db3150;
+}
+
+.cardTop span:last-child {
+  color: #db3150;
+}

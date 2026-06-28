@@ -1,25 +1,22 @@
 import SiteHeader from "./components/SiteHeader";
 import IntroLoader from "./components/IntroLoader";
-import BackgroundGlow from "./components/BackgroundGlow";
 import HeroSection from "./components/HeroSection";
-import ProblemSection from "./components/ProblemSection";
+import ProjectsSection from "./components/ProjectsSection";
 import ConceptsSection from "./components/ConceptsSection";
-import OfferSection from "./components/OfferSection";
-import ProcessSection from "./components/ProcessSection";
+import ReviewsSection from "./components/ReviewsSection";
 import AboutSection from "./components/AboutSection";
 import FinalCTA from "./components/FinalCTA";
 
+
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#050509] text-white">
-      <IntroLoader />
-      <BackgroundGlow />
+    <main className="min-h-screen overflow-x-clip bg-[#050509] text-white">
+    <IntroLoader />
       <SiteHeader />
       <HeroSection />
-      <ProblemSection />
+      <ProjectsSection />
       <ConceptsSection />
-      <OfferSection />
-      <ProcessSection />
+      <ReviewsSection />
       <AboutSection />
       <FinalCTA />
     </main>

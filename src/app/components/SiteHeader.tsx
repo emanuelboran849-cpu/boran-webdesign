@@ -1,106 +1,138 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
+
+const orbitGradient = `
+  conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 32deg,
+    rgba(255, 58, 108, 0.12) 42deg,
+    rgba(255, 68, 122, 0.95) 52deg,
+    rgba(255, 166, 192, 1) 61deg,
+    rgba(255, 68, 122, 0.16) 76deg,
+    transparent 92deg,
+    transparent 196deg,
+    rgba(72, 130, 255, 0.12) 207deg,
+    rgba(79, 140, 255, 0.95) 218deg,
+    rgba(174, 203, 255, 1) 228deg,
+    rgba(79, 140, 255, 0.16) 244deg,
+    transparent 262deg,
+    transparent 360deg
+  )
+`;
+
+const ringMask = {
+  padding: "1.5px",
+  WebkitMask:
+    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+  WebkitMaskComposite: "xor",
+  maskComposite: "exclude",
+} as CSSProperties;
 
 export default function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    let frameId: number;
-
-    const checkScroll = () => {
-      const y =
-        window.scrollY ||
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop ||
-        document.scrollingElement?.scrollTop ||
-        0;
-
-      const nextState = y > 90;
-
-      setScrolled((current) => {
-        if (current === nextState) return current;
-        return nextState;
-      });
-
-      frameId = window.requestAnimationFrame(checkScroll);
-    };
-
-    frameId = window.requestAnimationFrame(checkScroll);
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-    };
-  }, []);
-
   return (
-    <header className="fixed left-0 right-0 top-0 z-[999] px-4 pt-5">
-      <nav
-        className={[
-          "mx-auto flex max-w-7xl items-center justify-between transition-all duration-500",
-          scrolled
-            ? "rounded-2xl border border-white/10 bg-black/60 px-3 py-2.5 shadow-[0_14px_55px_rgba(0,0,0,0.55)] backdrop-blur-xl"
-            : "border-0 bg-transparent px-0 py-1 shadow-none",
-        ].join(" ")}
-      >
-        <div className="flex min-w-0 items-center gap-3">
+    <header className="fixed inset-x-0 top-0 z-[999] px-4 pt-5 md:px-8">
+      <nav className="relative mx-auto max-w-[1440px]">
+        <div className="relative overflow-hidden rounded-[28px] border border-white/[0.13] bg-[#09090d]/[0.92] p-[1.5px] shadow-[0_18px_60px_rgba(0,0,0,0.62)]">
+          {/* lumină roșu/albastru animată, decupată strict pe contur */}
           <div
-            className={[
-              "grid shrink-0 place-items-center rounded-xl text-sm font-bold transition-all duration-500",
-              scrolled
-                ? "h-9 w-9 border border-white/15 bg-white/10 shadow-[0_0_30px_rgba(139,92,246,0.25)]"
-                : "h-11 w-11 border border-white/10 bg-white/5 shadow-[0_0_50px_rgba(139,92,246,0.25)] backdrop-blur",
-            ].join(" ")}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-[1] rounded-[inherit]"
+            style={ringMask}
           >
-            BW
+            <motion.div
+              className="absolute -inset-[115%]"
+              style={{
+                background: orbitGradient,
+                filter:
+                  "drop-shadow(0 0 8px rgba(255,72,120,0.58)) drop-shadow(0 0 10px rgba(82,142,255,0.58))",
+              }}
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 7.5,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
           </div>
 
-          <div className="min-w-0">
-            <p
-              className={[
-                "truncate font-semibold tracking-wide text-white transition-all duration-500",
-                scrolled ? "text-sm" : "text-base md:text-sm",
-              ].join(" ")}
+          <div className="relative z-10 flex items-center justify-between gap-3 rounded-[26px] bg-[#07070a]/[0.97] px-3 py-3 backdrop-blur-2xl md:px-5">
+            <a
+              href="#start"
+              className="flex min-w-0 items-center gap-3 text-white no-underline"
             >
-              Boran Webdesign
-            </p>
+              <div
+  id="bw-header-logo-anchor"
+  className="grid h-[3.15rem] w-[3.15rem] shrink-0 place-items-center overflow-hidden rounded-[16px] border border-white/[0.12] bg-black shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_18px_rgba(255,255,255,0.06)]"
+>
+  <img
+    src="/bw-logo.png"
+    alt="Boran Webdesign Logo"
+    className="block h-[94%] w-[94%] translate-x-[1px] -translate-y-[1px] object-contain"
+  />
+</div>
 
-            <p
-              className={[
-                "text-white/45 transition-all duration-500",
-                scrolled ? "text-xs" : "text-sm md:text-xs",
-              ].join(" ")}
-            >
-              Premium Websites
-            </p>
+              <div className="min-w-0">
+                <p className="m-0 whitespace-nowrap font-serif text-[0.95rem] font-semibold uppercase leading-none tracking-[0.075em] text-white md:text-[1.08rem]">
+                  Boran Webdesign
+                </p>
+
+                <p className="m-0 mt-1 whitespace-nowrap font-mono text-[0.52rem] uppercase tracking-[0.19em] text-white/55 md:text-[0.6rem]">
+                  Premium Websites
+                </p>
+              </div>
+            </a>
+
+            <div className="hidden items-center gap-9 lg:flex">
+              <a
+                href="#start"
+                className="text-[0.94rem] text-white/70 no-underline transition hover:text-white"
+              >
+                Start
+              </a>
+
+              <a
+                href="#prozess"
+                className="text-[0.94rem] text-white/70 no-underline transition hover:text-white"
+              >
+                Ablauf
+              </a>
+
+              <a
+                href="#kontakt"
+                className="text-[0.94rem] text-white/70 no-underline transition hover:text-white"
+              >
+                Kontakt
+              </a>
+            </div>
+
+            <a
+  href="#kontakt"
+  aria-label="Projekt anfragen"
+  className="group inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.16] bg-white text-black no-underline shadow-[0_0_28px_rgba(255,255,255,0.2),0_12px_32px_rgba(255,255,255,0.12)] transition hover:-translate-y-0.5 hover:shadow-[0_0_38px_rgba(255,255,255,0.28),0_16px_42px_rgba(255,255,255,0.18)] sm:h-auto sm:w-auto sm:min-h-11 sm:gap-2 sm:px-5"
+>
+  <span className="hidden sm:inline text-[0.82rem] font-bold tracking-[0.02em]">
+    PROJEKT ANFRAGEN
+  </span>
+
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.9"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-[1.1rem] w-[1.1rem] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+    aria-hidden="true"
+  >
+    <path d="M7 17 17 7" />
+    <path d="M8 7h9v9" />
+  </svg>
+</a>
           </div>
         </div>
-
-        <div className="hidden items-center gap-8 text-sm text-white/65 md:flex">
-          <a href="#konzepte" className="hover:text-white">
-            Konzepte
-          </a>
-          <a href="#angebot" className="hover:text-white">
-            Angebot
-          </a>
-          <a href="#prozess" className="hover:text-white">
-            Ablauf
-          </a>
-        </div>
-
-        <a
-          href="https://wa.me/"
-          className={[
-            "rounded-full border text-sm font-bold text-black transition-all duration-500 hover:scale-105",
-            scrolled
-              ? "border-white/15 bg-white px-4 py-2"
-              : "border-white/20 bg-white px-5 py-3 shadow-[0_0_50px_rgba(255,255,255,0.15)]",
-          ].join(" ")}
-        >
-          Anfrage
-          <span className="hidden sm:inline"> starten</span>
-        </a>
       </nav>
     </header>
   );
