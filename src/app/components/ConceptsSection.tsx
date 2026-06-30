@@ -45,15 +45,15 @@ const principles: Principle[] = [
     tone: "violet",
   },
   {
-    number: "04",
-    label: "Verantwortung bis ins Detail",
-    cardTag: "VERANTWORTUNG",
-    title: "Jede Website trägt auch meinen Namen.",
-    description:
-      "Jedes Projekt repräsentiert nicht nur ein Unternehmen, sondern auch meinen eigenen Anspruch an Qualität, Wirkung und Sorgfalt.",
-    footer: "Kein Projekt wie eine Vorlage.",
-    tone: "white",
-  },
+  number: "04",
+  label: "Eigene Identität",
+  cardTag: "IDENTITÄT",
+  title: "Nicht wie jede andere. Sondern wie Ihre.",
+  description:
+    "Ein guter Auftritt übersetzt den Charakter Ihres Unternehmens in eine eigene digitale Welt — statt auf eine Vorlage zu setzen.",
+  footer: "IHRE MARKE. KEINE KOPIE.",
+  tone: "white",
+},
 ];
 
 export default function ConceptsSection() {

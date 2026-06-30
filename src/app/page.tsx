@@ -6,6 +6,7 @@ import ConceptsSection from "./components/ConceptsSection";
 import ReviewsSection from "./components/ReviewsSection";
 import AboutSection from "./components/AboutSection";
 import FinalCTA from "./components/FinalCTA";
+import Footer from "./components/Footer";
 
 
 export default function Home() {
@@ -15,10 +16,11 @@ export default function Home() {
       <SiteHeader />
       <HeroSection />
       <ProjectsSection />
+      <AboutSection />
       <ConceptsSection />
       <ReviewsSection />
-      <AboutSection />
       <FinalCTA />
+      <Footer />
     </main>
   );
 }
