@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Boran Webdesign | Premium Websites für lokale Unternehmen",
@@ -10,13 +11,18 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Boran Webdesign",
-    description:
-      "Premium Websites für lokale Unternehmen in Deutschland.",
+    description: "Premium Websites für lokale Unternehmen in Deutschland.",
     url: "https://www.boran-webdesign.de",
     siteName: "Boran Webdesign",
     locale: "de_DE",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -25,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-   <html lang="de" className="h-full antialiased">
+    <html lang="de" className="h-full antialiased">
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
