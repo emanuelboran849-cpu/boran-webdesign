@@ -1,16 +1,24 @@
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+"use client";
+
+import {
+  ArrowUpRight,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+} from "lucide-react";
 
 const CONTACT = {
-  phoneDisplay: "+49 000 00000000",
-  phoneHref: "+490000000000",
+  phoneDisplay: "+49 155 61950565",
+  phoneHref: "+4915561950565",
 
-  email: "DEINE-EMAIL@DEINEDOMAIN.DE",
+  email: "kontakt@boran-webdesign.de",
 
-  whatsappDisplay: "+49 000 00000000",
-  whatsappNumber: "490000000000",
+  whatsappDisplay: "+49 155 61950565",
+  whatsappNumber: "4915561950565",
 
-  addressLine1: "DEINE STRASSE + HAUSNUMMER",
-  addressLine2: "DEINE PLZ + ORT, Deutschland",
+  addressLine1: "Am Eckrain 15/1",
+  addressLine2: "78554 Aldingen, Deutschland",
 };
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -18,55 +26,73 @@ const CURRENT_YEAR = new Date().getFullYear();
 export default function Footer() {
   const mapsAddress = `${CONTACT.addressLine1}, ${CONTACT.addressLine2}`;
 
+  const openLeadForm = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("boran:open-lead-form"));
+    }
+  };
+
   return (
     <>
       <footer className="bw-footer">
         <div className="bw-footer-shell">
-          <div className="bw-footer-microbar">
+          <div className="bw-footer-topbar">
             <span>BORAN WEBDESIGN · DEUTSCHLAND</span>
-            <span>PREMIUM DIGITAL PRESENCE</span>
           </div>
 
           <div className="bw-footer-main">
-            <div className="bw-footer-brand-area">
-              <div className="bw-footer-brand">
-                <img
-                  src="/bw-logo.png"
-                  alt="BW Monogram"
-                  className="bw-footer-logo"
-                />
+            <div className="bw-footer-left">
+              <div className="bw-footer-brand-row">
+                <div className="bw-footer-logo-box">
+                  <img
+                    src="/bw-logo.png"
+                    alt="Boran Webdesign Logo"
+                    className="bw-footer-logo"
+                  />
+                </div>
 
-                <div className="bw-footer-brand-text">
+                <div className="bw-footer-brand-meta">
                   <strong>BORAN WEBDESIGN</strong>
-
+                  <span>PREMIUM DIGITAL PRESENCE</span>
                 </div>
               </div>
 
-              <p className="bw-footer-statement">
+              <h2 className="bw-footer-heading">
                 Websites für lokale Unternehmen, die nicht nur sichtbar sein
                 wollen, sondern den richtigen Eindruck hinterlassen.
-              </p>
+              </h2>
 
-              <p className="bw-footer-note">
+              <p className="bw-footer-subtext">
                 Persönlich geplant. Präzise gestaltet. Klar umgesetzt.
               </p>
+
+              <button
+                type="button"
+                onClick={openLeadForm}
+                className="bw-footer-cta"
+              >
+                <span>Projekt anfragen</span>
+                <ArrowUpRight size={18} strokeWidth={2.2} />
+              </button>
             </div>
 
-            <div className="bw-footer-contact-area">
-              <div className="bw-footer-contact-heading">
-                <span>KONTAKT</span>
-                <p>Direkt, persönlich und unkompliziert.</p>
-              </div>
+            <div className="bw-footer-right">
+              <div className="bw-footer-contact-card">
+                <div className="bw-footer-contact-head">
+                  <small>KONTAKT</small>
+                  <h3>Direkt, persönlich und unkompliziert.</h3>
+                </div>
 
-              <div className="bw-footer-contact-grid">
-                <div className="bw-footer-contact-column">
+                <div className="bw-footer-contact-grid">
                   <a
                     href={`tel:${CONTACT.phoneHref}`}
                     className="bw-footer-contact-item"
                   >
-                    <Phone size={18} strokeWidth={1.8} />
+                    <div className="bw-footer-contact-icon">
+                      <Phone size={18} strokeWidth={1.9} />
+                    </div>
 
-                    <div>
+                    <div className="bw-footer-contact-copy">
                       <small>Telefon</small>
                       <strong>{CONTACT.phoneDisplay}</strong>
                     </div>
@@ -76,9 +102,11 @@ export default function Footer() {
                     href={`mailto:${CONTACT.email}`}
                     className="bw-footer-contact-item"
                   >
-                    <Mail size={18} strokeWidth={1.8} />
+                    <div className="bw-footer-contact-icon">
+                      <Mail size={18} strokeWidth={1.9} />
+                    </div>
 
-                    <div>
+                    <div className="bw-footer-contact-copy">
                       <small>E-Mail</small>
                       <strong>{CONTACT.email}</strong>
                     </div>
@@ -90,27 +118,29 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="bw-footer-contact-item"
                   >
-                    <MessageCircle size={18} strokeWidth={1.8} />
+                    <div className="bw-footer-contact-icon">
+                      <MessageCircle size={18} strokeWidth={1.9} />
+                    </div>
 
-                    <div>
+                    <div className="bw-footer-contact-copy">
                       <small>WhatsApp</small>
                       <strong>{CONTACT.whatsappDisplay}</strong>
                     </div>
                   </a>
-                </div>
 
-                <div className="bw-footer-contact-column">
                   <a
                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                      mapsAddress
+                      mapsAddress,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bw-footer-contact-item bw-footer-location"
+                    className="bw-footer-contact-item bw-footer-contact-item-location"
                   >
-                    <MapPin size={18} strokeWidth={1.8} />
+                    <div className="bw-footer-contact-icon">
+                      <MapPin size={18} strokeWidth={1.9} />
+                    </div>
 
-                    <div>
+                    <div className="bw-footer-contact-copy">
                       <small>Standort</small>
                       <strong>
                         {CONTACT.addressLine1}
@@ -142,7 +172,7 @@ export default function Footer() {
         .bw-footer {
           position: relative;
           overflow: hidden;
-          padding: 32px 20px 30px;
+          padding: 34px 20px 28px;
           background: #000000;
           color: #ffffff;
         }
@@ -152,181 +182,251 @@ export default function Footer() {
           margin: 0 auto;
         }
 
-        .bw-footer-microbar {
+        .bw-footer-topbar {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          gap: 20px;
-          padding-bottom: 24px;
+          justify-content: flex-start;
+          padding-bottom: 22px;
           border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .bw-footer-topbar span {
           color: rgba(255, 255, 255, 0.34);
           font-size: 10px;
           font-weight: 800;
           letter-spacing: 0.18em;
+          text-transform: uppercase;
         }
 
         .bw-footer-main {
           display: grid;
-          grid-template-columns: minmax(0, 0.94fr) minmax(440px, 1.06fr);
-          gap: clamp(56px, 10vw, 150px);
-          padding: 74px 0 70px;
+          grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.98fr);
+          gap: clamp(44px, 7vw, 96px);
+          padding: clamp(42px, 6vw, 70px) 0;
+          align-items: start;
         }
 
-        .bw-footer-brand-area {
-          max-width: 500px;
+        .bw-footer-left {
+          max-width: 620px;
         }
 
-        .bw-footer-brand {
+        .bw-footer-brand-row {
           display: flex;
           align-items: center;
-          gap: 24px;
+          gap: 22px;
+        }
+
+        .bw-footer-logo-box {
+          display: grid;
+          place-items: center;
+          width: 110px;
+          height: 110px;
+          flex: 0 0 auto;
+          border-radius: 28px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: #050505;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.06),
+            0 16px 42px rgba(0, 0, 0, 0.34);
+          overflow: hidden;
         }
 
         .bw-footer-logo {
           display: block;
-          width: 112px;
-          height: 112px;
-          flex: 0 0 auto;
+          width: 78%;
+          height: 78%;
           object-fit: contain;
         }
 
-        .bw-footer-brand-text {
+        .bw-footer-brand-meta {
           display: flex;
           flex-direction: column;
           gap: 10px;
         }
 
-        .bw-footer-brand-text strong {
+        .bw-footer-brand-meta strong {
           color: #ffffff;
           font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
-          font-size: clamp(26px, 2.5vw, 35px);
+          font-size: clamp(24px, 2.5vw, 38px);
           font-weight: 500;
-          letter-spacing: 0.055em;
+          letter-spacing: 0.06em;
           line-height: 0.95;
         }
 
-        .bw-footer-brand-text span {
-          color: rgba(255, 255, 255, 0.48);
+        .bw-footer-brand-meta span {
+          color: rgba(255, 255, 255, 0.4);
           font-size: 10px;
-          font-weight: 850;
-          letter-spacing: 0.28em;
+          font-weight: 800;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
         }
 
-        .bw-footer-statement {
-          max-width: 465px;
-          margin: 42px 0 0;
-          color: rgba(255, 255, 255, 0.78);
+        .bw-footer-heading {
+          max-width: 620px;
+          margin: 38px 0 0;
+          color: rgba(255, 255, 255, 0.9);
           font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
-          font-size: clamp(25px, 2.25vw, 33px);
+          font-size: clamp(34px, 4vw, 62px);
           font-weight: 400;
-          line-height: 1.08;
-          letter-spacing: -0.04em;
+          line-height: 1.01;
+          letter-spacing: -0.055em;
         }
 
-        .bw-footer-note {
+        .bw-footer-subtext {
           margin: 22px 0 0;
-          color: rgba(255, 255, 255, 0.38);
+          color: rgba(255, 255, 255, 0.42);
+          font-size: 15px;
+          line-height: 1.6;
+        }
+
+        .bw-footer-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          min-height: 50px;
+          margin-top: 30px;
+          padding: 0 22px;
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          border-radius: 999px;
+          background: #0a0a0a;
+          color: #ffffff;
           font-size: 13px;
-          line-height: 1.55;
-        }
-
-        .bw-footer-contact-area {
-          padding-top: 9px;
-        }
-
-        .bw-footer-contact-heading {
-          margin-bottom: 38px;
-        }
-
-        .bw-footer-contact-heading span {
-          color: rgba(255, 255, 255, 0.40);
-          font-size: 10px;
           font-weight: 850;
-          letter-spacing: 0.20em;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            background 180ms ease;
         }
 
-        .bw-footer-contact-heading p {
-          margin: 12px 0 0;
-          color: rgba(255, 255, 255, 0.85);
-          font-size: 20px;
-          font-weight: 500;
-          letter-spacing: -0.03em;
+        .bw-footer-cta:hover {
+          transform: translateY(-2px);
+          border-color: rgba(255, 255, 255, 0.3);
+          background: #111111;
+        }
+
+        .bw-footer-right {
+          width: 100%;
+        }
+
+        .bw-footer-contact-card {
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 34px;
+          background: #050505;
+          padding: 34px;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            0 24px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        .bw-footer-contact-head {
+          margin-bottom: 24px;
+        }
+
+        .bw-footer-contact-head small {
+          display: inline-block;
+          color: #db3150;
+          font-size: 11px;
+          font-weight: 850;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+
+        .bw-footer-contact-head h3 {
+          margin: 14px 0 0;
+          color: rgba(255, 255, 255, 0.94);
+          font-size: clamp(28px, 3vw, 46px);
+          font-weight: 700;
+          line-height: 0.98;
+          letter-spacing: -0.05em;
         }
 
         .bw-footer-contact-grid {
           display: grid;
-          grid-template-columns: minmax(210px, 1fr) minmax(210px, 0.9fr);
-          gap: clamp(36px, 6vw, 76px);
-        }
-
-        .bw-footer-contact-column {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 25px;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
         }
 
         .bw-footer-contact-item {
           display: flex;
           align-items: flex-start;
           gap: 14px;
-          color: rgba(255, 255, 255, 0.72);
+          min-height: 96px;
+          padding: 18px 18px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 22px;
+          background: #080808;
+          color: rgba(255, 255, 255, 0.76);
           text-decoration: none;
-          transition: color 180ms ease, transform 180ms ease;
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            background 180ms ease;
         }
 
         .bw-footer-contact-item:hover {
-          color: #ffffff;
-          transform: translateX(4px);
+          transform: translateY(-2px);
+          border-color: rgba(255, 255, 255, 0.16);
+          background: #0d0d0d;
         }
 
-        .bw-footer-contact-item svg {
+        .bw-footer-contact-item-location {
+          grid-column: 1 / -1;
+        }
+
+        .bw-footer-contact-icon {
+          display: grid;
+          place-items: center;
+          width: 44px;
+          height: 44px;
           flex: 0 0 auto;
-          margin-top: 3px;
-          color: rgba(255, 255, 255, 0.50);
+          border-radius: 14px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: #0d0d0d;
+          color: rgba(255, 255, 255, 0.74);
         }
 
-        .bw-footer-contact-item div {
+        .bw-footer-contact-copy {
           display: flex;
           flex-direction: column;
-          gap: 5px;
+          gap: 6px;
           min-width: 0;
         }
 
-        .bw-footer-contact-item small {
-          color: rgba(255, 255, 255, 0.37);
+        .bw-footer-contact-copy small {
+          color: rgba(255, 255, 255, 0.34);
           font-size: 11px;
+          font-weight: 700;
         }
 
-        .bw-footer-contact-item strong {
-          color: rgba(255, 255, 255, 0.80);
+        .bw-footer-contact-copy strong {
+          color: rgba(255, 255, 255, 0.88);
           font-size: 14px;
-          font-weight: 550;
-          line-height: 1.55;
+          font-weight: 650;
+          line-height: 1.5;
           overflow-wrap: anywhere;
-        }
-
-        .bw-footer-location {
-          transition: color 180ms ease, transform 180ms ease;
         }
 
         .bw-footer-divider {
           width: 100%;
           height: 1px;
-          background: rgba(255, 255, 255, 0.13);
+          background: rgba(255, 255, 255, 0.12);
         }
 
         .bw-footer-bottom {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 20px;
-          padding-top: 24px;
+          gap: 16px;
+          padding-top: 22px;
         }
 
         .bw-footer-bottom p {
           margin: 0;
-          color: rgba(255, 255, 255, 0.34);
+          color: rgba(255, 255, 255, 0.3);
           font-size: 12px;
           line-height: 1.5;
         }
@@ -334,7 +434,7 @@ export default function Footer() {
         .bw-footer-legal {
           display: flex;
           align-items: center;
-          gap: 13px;
+          gap: 12px;
         }
 
         .bw-footer-legal a {
@@ -351,100 +451,123 @@ export default function Footer() {
         .bw-footer-legal span {
           width: 3px;
           height: 3px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.28);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.24);
         }
 
-        @media (max-width: 930px) {
+        @media (max-width: 980px) {
           .bw-footer-main {
             grid-template-columns: 1fr;
-            gap: 64px;
+            gap: 42px;
           }
 
-          .bw-footer-brand-area {
-            max-width: 610px;
+          .bw-footer-left {
+            max-width: 100%;
           }
         }
 
-        @media (max-width: 620px) {
+        @media (max-width: 640px) {
           .bw-footer {
-            padding: 26px 20px 28px;
+            padding: 28px 20px 28px;
           }
 
-          .bw-footer-microbar {
-            padding-bottom: 19px;
+          .bw-footer-topbar {
+            padding-bottom: 18px;
+          }
+
+          .bw-footer-topbar span {
             font-size: 9px;
-            letter-spacing: 0.13em;
-          }
-
-          .bw-footer-microbar span:last-child {
-            display: none;
+            letter-spacing: 0.14em;
           }
 
           .bw-footer-main {
-            gap: 56px;
-            padding: 54px 0 52px;
+            gap: 34px;
+            padding: 34px 0 42px;
           }
 
-          .bw-footer-brand {
-            gap: 18px;
+          .bw-footer-brand-row {
+            align-items: center;
+            gap: 16px;
           }
 
-          .bw-footer-logo {
-            width: 94px;
-            height: 94px;
+          .bw-footer-logo-box {
+            width: 84px;
+            height: 84px;
+            border-radius: 24px;
           }
 
-          .bw-footer-brand-text strong {
-            font-size: 25px;
+          .bw-footer-brand-meta strong {
+            font-size: 22px;
+            line-height: 0.95;
           }
 
-          .bw-footer-brand-text span {
+          .bw-footer-brand-meta span {
             font-size: 9px;
-            letter-spacing: 0.23em;
+            letter-spacing: 0.16em;
           }
 
-          .bw-footer-statement {
-            margin-top: 36px;
-            font-size: 27px;
+          .bw-footer-heading {
+            margin-top: 30px;
+            font-size: clamp(28px, 10vw, 44px);
+            line-height: 1.02;
           }
 
-          .bw-footer-contact-heading {
-            margin-bottom: 31px;
+          .bw-footer-subtext {
+            margin-top: 18px;
+            font-size: 14px;
+          }
+
+          .bw-footer-cta {
+            width: 100%;
+            min-height: 54px;
+            margin-top: 26px;
+          }
+
+          .bw-footer-contact-card {
+            padding: 22px 18px 18px;
+            border-radius: 26px;
+          }
+
+          .bw-footer-contact-head {
+            margin-bottom: 18px;
+          }
+
+          .bw-footer-contact-head h3 {
+            font-size: 26px;
+            line-height: 1;
           }
 
           .bw-footer-contact-grid {
             grid-template-columns: 1fr;
-            gap: 34px;
+            gap: 12px;
           }
 
-          .bw-footer-contact-column {
-            gap: 23px;
+          .bw-footer-contact-item,
+          .bw-footer-contact-item-location {
+            grid-column: auto;
+          }
+
+          .bw-footer-contact-item {
+            min-height: auto;
+            padding: 15px 14px;
+            border-radius: 18px;
+          }
+
+          .bw-footer-contact-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
           }
 
           .bw-footer-bottom {
-            align-items: flex-start;
             flex-direction: column-reverse;
-            gap: 15px;
-          }
-        }
-
-        @media (max-width: 390px) {
-          .bw-footer-logo {
-            width: 82px;
-            height: 82px;
-          }
-
-          .bw-footer-brand-text strong {
-            font-size: 22px;
-          }
-
-          .bw-footer-statement {
-            font-size: 25px;
+            align-items: flex-start;
+            gap: 12px;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
+          .bw-footer-cta,
           .bw-footer-contact-item,
           .bw-footer-legal a {
             transition: none;

@@ -1,6 +1,12 @@
+@property --bw-card-orbit {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .section {
   position: relative;
-  height: 274svh;
+  height: 365svh;
   background: #050506;
   color: #f7f5f2;
 }
@@ -12,8 +18,8 @@
   overflow: hidden;
   isolation: isolate;
   background:
-    radial-gradient(circle at 84% 14%, rgba(86, 103, 219, 0.11), transparent 27%),
-    radial-gradient(circle at 15% 92%, rgba(219, 34, 76, 0.1), transparent 28%),
+    radial-gradient(circle at 84% 14%, rgba(86, 103, 219, 0.12), transparent 27%),
+    radial-gradient(circle at 15% 92%, rgba(219, 34, 76, 0.12), transparent 29%),
     #050506;
 }
 
@@ -21,13 +27,12 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.018) 50%,
-      transparent 100%
-    );
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.018) 50%,
+    transparent 100%
+  );
 }
 
 .heading {
@@ -41,22 +46,24 @@
 }
 
 .heading p {
-  margin: 0;
+  max-width: 38rem;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.48);
   font-size: 0.67rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
+  font-weight: 750;
+  letter-spacing: 0.22em;
+  line-height: 1.45;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.46);
 }
 
 .heading h2 {
   margin: 1rem 0 0;
+  color: #db3150;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(5.7rem, 10vw, 10.5rem);
   font-weight: 400;
-  line-height: 0.78;
   letter-spacing: -0.09em;
-  color: #db3150;
+  line-height: 0.78;
 }
 
 .viewport {
@@ -72,17 +79,15 @@
   display: flex;
   width: max-content;
   height: 100%;
-  will-change: transform;
   transform: translate3d(0, 0, 0);
+  will-change: transform;
+  transition: none
 }
 
 .slide {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(15rem, 1fr) minmax(20rem, 28rem) minmax(
-      15rem,
-      1fr
-    );
+  grid-template-columns: minmax(15rem, 1fr) minmax(20rem, 28rem) minmax(15rem, 1fr);
   align-items: center;
   gap: clamp(3rem, 6vw, 8rem);
   flex: 0 0 100vw;
@@ -96,14 +101,14 @@
   top: 50%;
   left: 50%;
   z-index: 0;
+  color: rgba(255, 255, 255, 0.045);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(21rem, 31vw, 36rem);
   font-weight: 400;
-  line-height: 0.7;
   letter-spacing: -0.16em;
-  color: rgba(255, 255, 255, 0.045);
-  transform: translate(-50%, -50%);
+  line-height: 0.7;
   pointer-events: none;
+  transform: translate(-50%, -50%);
   user-select: none;
 }
 
@@ -120,66 +125,97 @@
 
 .leftContent p {
   margin: 0;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.64rem;
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
 }
 
 .leftContent h3 {
   max-width: 8.5ch;
   margin: 1.35rem 0 0;
+  color: #f8f6f2;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(2.8rem, 4.35vw, 5.2rem);
   font-weight: 400;
-  line-height: 0.88;
   letter-spacing: -0.075em;
-  color: #f8f6f2;
+  line-height: 0.88;
 }
 
 .card {
+  --bw-card-orbit: 0deg;
+
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+  isolation: isolate;
+  border: 2px solid transparent;
   border-radius: 2.6rem;
-  background:
+
+  background-image:
     radial-gradient(circle at 88% 14%, var(--glow), transparent 30%),
     radial-gradient(circle at 12% 93%, var(--glow-soft), transparent 34%),
-    linear-gradient(145deg, #111116 0%, #070708 60%, #0b0b0d 100%);
+    linear-gradient(145deg, #111116 0%, #070708 60%, #0b0b0d 100%),
+    conic-gradient(
+      from var(--bw-card-orbit),
+      rgba(255, 255, 255, 0.1) 0deg,
+      rgba(255, 255, 255, 0.1) 276deg,
+      rgba(255, 255, 255, 0.16) 292deg,
+      rgba(255, 255, 255, 0.55) 310deg,
+      rgba(255, 255, 255, 1) 324deg,
+      rgba(255, 255, 255, 0.56) 339deg,
+      rgba(255, 255, 255, 0.16) 352deg,
+      rgba(255, 255, 255, 0.1) 360deg
+    );
+
+  background-repeat: no-repeat;
+  background-origin: padding-box, padding-box, padding-box, border-box;
+  background-clip: padding-box, padding-box, padding-box, border-box;
+
   box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    0 30px 70px rgba(0, 0, 0, 0.32),
+    0 0 22px rgba(255, 255, 255, 0.025),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  animation: bw-card-orbit 2.8s linear infinite;
+}
+
+@keyframes bw-card-orbit {
+  from {
+    --bw-card-orbit: 0deg;
+  }
+
+  to {
+    --bw-card-orbit: 360deg;
+  }
 }
 
 .tonered {
-  --glow: rgba(222, 48, 81, 0.22);
-  --glow-soft: rgba(206, 31, 62, 0.15);
-  --accent: #e03a59;
+  --glow: rgba(222, 48, 81, 0.24);
+  --glow-soft: rgba(206, 31, 62, 0.16);
 }
 
 .toneblue {
-  --glow: rgba(96, 124, 233, 0.22);
-  --glow-soft: rgba(80, 101, 209, 0.13);
-  --accent: #90a7ff;
+  --glow: rgba(96, 124, 233, 0.24);
+  --glow-soft: rgba(80, 101, 209, 0.14);
 }
 
 .toneviolet {
-  --glow: rgba(151, 86, 223, 0.2);
-  --glow-soft: rgba(90, 47, 171, 0.14);
-  --accent: #c4a1ff;
+  --glow: rgba(151, 86, 223, 0.22);
+  --glow-soft: rgba(90, 47, 171, 0.15);
 }
 
 .tonewhite {
-  --glow: rgba(255, 255, 255, 0.14);
-  --glow-soft: rgba(202, 207, 255, 0.1);
-  --accent: #ffffff;
+  --glow: rgba(255, 255, 255, 0.15);
+  --glow-soft: rgba(202, 207, 255, 0.11);
 }
 
 .cardFrameOne,
 .cardFrameTwo {
   position: absolute;
+  z-index: 1;
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 2.1rem;
   pointer-events: none;
@@ -211,11 +247,15 @@
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.53rem;
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+}
+
+.cardTop span:last-child {
+  color: #db3150;
 }
 
 .cardNumber {
@@ -223,13 +263,13 @@
   top: 50%;
   left: 50%;
   z-index: 1;
+  color: #db3150;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(10rem, 17vw, 16rem);
   font-weight: 400;
-  line-height: 0.65;
   letter-spacing: -0.15em;
-  color: var(--accent);
-  opacity: 0.78;
+  line-height: 0.65;
+  opacity: 0.8;
   transform: translate(-50%, -50%);
 }
 
@@ -239,11 +279,11 @@
   bottom: 1.45rem;
   left: 1.5rem;
   z-index: 3;
+  color: rgba(255, 255, 255, 0.42);
   font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
 }
 
 .mobileCardTitle {
@@ -256,19 +296,19 @@
 
 .rightContent p {
   margin: 0;
+  color: rgba(255, 255, 255, 0.66);
   font-size: clamp(1rem, 1.23vw, 1.18rem);
   line-height: 1.68;
-  color: rgba(255, 255, 255, 0.63);
 }
 
 .rightContent span {
   display: block;
   margin-top: 1.7rem;
+  color: #db3150;
   font-size: 0.61rem;
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
 }
 
 .scrollIndicator {
@@ -280,11 +320,11 @@
   align-items: center;
   gap: 0.8rem;
   min-width: 14rem;
-  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.17em;
-  color: rgba(255, 255, 255, 0.4);
+  transform: translateX(-50%);
 }
 
 .scrollIndicator strong {
@@ -303,25 +343,29 @@
   position: absolute;
   inset: 0;
   display: block;
+  background: #db3150;
   transform: scaleX(0);
   transform-origin: left center;
-  background: #db3150;
   will-change: transform;
 }
 
 @media (max-width: 899px) {
   .section {
-    height: 268svh;
+    height: 360svh;
   }
 
+  .track {
+    transition: none
+  }
+  
   .heading {
-    top: 17svh;
-    width: calc(100% - 2.6rem);
+    top: 14.2svh;
+    width: calc(100% - 2rem);
   }
 
   .heading p {
-    font-size: 0.55rem;
-    letter-spacing: 0.18em;
+    font-size: 0.54rem;
+    letter-spacing: 0.15em;
   }
 
   .heading h2 {
@@ -330,17 +374,18 @@
   }
 
   .viewport {
-    top: 37svh;
-    bottom: 8svh;
+    top: 34svh;
+    bottom: 6svh;
   }
 
   .slide {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
-    align-content: center;
-    gap: 1rem;
-    padding: 0 1.4rem;
+    justify-items: center;
+    align-content: start;
+    gap: 0.95rem;
+    padding: 0.25rem 1rem 0;
   }
 
   .backgroundNumber {
@@ -357,17 +402,12 @@
   }
 
   .card {
-    width: min(67vw, 18rem);
+    width: min(62vw, 16rem);
+    max-width: calc(100vw - 3rem);
     margin: 0 auto;
+    border-width: 2px;
     border-radius: 2rem;
-  }
-
-  .cardTop {
-    top: 1.15rem;
-    right: 1.15rem;
-    left: 1.15rem;
-    font-size: 0.47rem;
-    letter-spacing: 0.14em;
+    animation-duration: 2.3s;
   }
 
   .cardFrameOne {
@@ -378,6 +418,14 @@
     border-radius: 1.45rem;
   }
 
+  .cardTop {
+    top: 1.1rem;
+    right: 1.15rem;
+    left: 1.15rem;
+    font-size: 0.47rem;
+    letter-spacing: 0.14em;
+  }
+
   .cardNumber {
     top: 40%;
     font-size: clamp(8rem, 31vw, 11rem);
@@ -385,19 +433,19 @@
 
   .mobileCardTitle {
     position: absolute;
-    right: 1.25rem;
+    right: 1.2rem;
     bottom: 1.25rem;
-    left: 1.25rem;
+    left: 1.2rem;
     z-index: 3;
     display: block;
     max-width: 11ch;
     margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2rem, 8.5vw, 2.8rem);
-    font-weight: 400;
-    line-height: 0.9;
-    letter-spacing: -0.07em;
     color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 8.4vw, 2.75rem);
+    font-weight: 400;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
   }
 
   .cardBottom {
@@ -405,26 +453,26 @@
   }
 
   .rightContent {
-    width: min(100%, 20rem);
+    width: min(100%, 18.5rem);
     max-width: none;
     margin: 0 auto;
     text-align: center;
   }
 
   .rightContent p {
-    font-size: 0.95rem;
-    line-height: 1.52;
-    color: rgba(255, 255, 255, 0.67);
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.88rem;
+    line-height: 1.48;
   }
 
   .rightContent span {
-    margin-top: 0.85rem;
+    margin-top: 0.8rem;
     font-size: 0.49rem;
     letter-spacing: 0.15em;
   }
 
   .scrollIndicator {
-    bottom: 3.2svh;
+    bottom: 2.7svh;
     min-width: 12rem;
     font-size: 0.49rem;
   }
@@ -434,17 +482,33 @@
   }
 }
 
+@media (max-width: 390px) {
+  .heading h2 {
+    font-size: 4.5rem;
+  }
+
+  .card {
+    width: min(60vw, 15.2rem);
+    max-width: calc(100vw - 3.4rem);
+  }
+
+  .rightContent {
+    width: min(100%, 17.7rem);
+  }
+
+  .rightContent p {
+    font-size: 0.84rem;
+    line-height: 1.44;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .track {
     transform: none !important;
   }
-}
-/* Toate cifrele din carduri — aceeași culoare ca titlul „Prinzipien.” */
 
-.cardNumber {
-  color: #db3150;
-}
-
-.cardTop span:last-child {
-  color: #db3150;
+  .card {
+    animation: none;
+    --bw-card-orbit: 318deg;
+  }
 }

@@ -1,193 +1,678 @@
+"use client";
+
+import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+import { useRef, type ReactNode } from "react";
 import styles from "./AboutSection.module.css";
 
-const capabilities = [
-  {
-    number: "01",
-    label: "STRATEGIE",
-    title: "Positionierung vor Gestaltung.",
-    text: "Angebot, Zielgruppe und die wichtigste Botschaft werden zuerst geschärft — damit Ihre Website nicht nur gut aussieht, sondern klar kommuniziert.",
-    className: styles.cardOne,
-  },
-  {
-    number: "02",
-    label: "TECHNIK",
-    title: "Schnell. Stabil. Sauber gebaut.",
-    text: "Responsive umgesetzt, technisch klar strukturiert und für eine zuverlässige Nutzung auf allen relevanten Geräten entwickelt.",
-    className: styles.cardTwo,
-  },
-  {
-    number: "03",
-    label: "SICHTBARKEIT",
-    title: "Für Google sauber vorbereitet.",
-    text: "Strukturierte Inhalte, relevante Meta-Daten und lokale SEO-Grundlagen schaffen die technische Basis für bessere Auffindbarkeit.",
-    className: styles.cardThree,
-  },
+const ENTER_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const railItems = [
+  "EIN ANSPRECHPARTNER",
+  "DIREKTER AUSTAUSCH",
+  "KLARE VERANTWORTUNG",
+  "VON DER IDEE BIS LIVE",
 ];
 
+const proofPoints = [
+  "Ein Ansprechpartner statt Agentur-Übergaben",
+  "Strategie, Design & Umsetzung aus einer Hand",
+  "Klare Abstimmung vom ersten Gespräch bis live",
+];
+
+const processSteps = [
+  "ERSTGESPRÄCH",
+  "VORSCHAU",
+  "FEEDBACK",
+  "UMSETZUNG",
+  "LIVEGANG",
+];
+
+type MaskLineTone = "dark" | "accentDark" | "light" | "accentLight";
+
+function MaskLine({
+  active,
+  delay,
+  children,
+  tone = "dark",
+}: {
+  active: boolean;
+  delay: number;
+  children: ReactNode;
+  tone?: MaskLineTone;
+}) {
+  const isAccent = tone === "accentDark" || tone === "accentLight";
+  const isLight = tone === "light" || tone === "accentLight";
+
+  const color = isAccent ? "#db3150" : isLight ? "#f8f5f0" : "#09090c";
+  const textShadow = isAccent
+    ? isLight
+      ? "0 0 28px rgba(219, 49, 80, 0.16)"
+      : "0 0 28px rgba(219, 49, 80, 0.1)"
+    : "none";
+
+  return (
+    <span
+      style={{
+        display: "block",
+        overflow: "hidden",
+        marginTop: isAccent ? "0.08em" : 0,
+        paddingBottom: "0.06em",
+        color,
+        textShadow,
+      }}
+    >
+      <motion.span
+        initial={{
+          y: "110%",
+          opacity: 0,
+          filter: "blur(4px)",
+        }}
+        animate={
+          active
+            ? {
+                y: "0%",
+                opacity: 1,
+                filter: "blur(0px)",
+              }
+            : {
+                y: "110%",
+                opacity: 0,
+                filter: "blur(4px)",
+              }
+        }
+        transition={{
+          duration: 0.72,
+          delay,
+          ease: ENTER_EASE,
+        }}
+        style={{
+          display: "block",
+          marginTop: 0,
+          color: "inherit",
+          textShadow: "inherit",
+          willChange: "transform, opacity, filter",
+        }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
 export default function AboutSection() {
+  const introRef = useRef<HTMLDivElement | null>(null);
+  const workRef = useRef<HTMLElement | null>(null);
+
+  const introInView = useInView(introRef, {
+    once: true,
+    amount: 0.24,
+    margin: "0px 0px -16% 0px",
+  });
+
+  const workInView = useInView(workRef, {
+    once: true,
+    amount: 0.22,
+    margin: "0px 0px -16% 0px",
+  });
+
   return (
     <section id="about" className={styles.section}>
       <div className={styles.container}>
-        <p className={styles.topKicker}>
-          WER HINTER BORAN WEBDESIGN STEHT.
-        </p>
+        <motion.p
+          initial={{
+            opacity: 0,
+            y: 18,
+            filter: "blur(6px)",
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+          }}
+          viewport={{
+            once: true,
+            amount: 0.65,
+          }}
+          transition={{
+            duration: 0.52,
+            ease: ENTER_EASE,
+          }}
+          className={styles.topKicker}
+        >
+          DIREKTE ZUSAMMENARBEIT
+        </motion.p>
 
-        <figure className={styles.heroVisual}>
-          <Image
-            src="/emanuel-brand.png"
-            alt="Emanuel Boran bringt ein Boran Webdesign Bild an."
-            width={1600}
-            height={900}
-            sizes="(max-width: 760px) 100vw, 1320px"
-            className={styles.heroImage}
-          />
+        <motion.figure
+          initial={{
+            opacity: 0,
+            y: 30,
+            scale: 0.982,
+            filter: "blur(8px)",
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
+          }}
+          viewport={{
+            once: true,
+            amount: 0.34,
+          }}
+          transition={{
+            duration: 0.78,
+            delay: 0.08,
+            ease: ENTER_EASE,
+          }}
+          className={styles.heroVisual}
+        >
+          <motion.div
+            initial={{
+              scale: 1.045,
+              x: 14,
+            }}
+            whileInView={{
+              scale: 1,
+              x: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.34,
+            }}
+            transition={{
+              duration: 1,
+              delay: 0.12,
+              ease: ENTER_EASE,
+            }}
+            style={{
+              width: "100%",
+              height: "100%",
+              willChange: "transform",
+              transform: "translateZ(0)",
+            }}
+          >
+            <Image
+              src="/emanuel-brand.png"
+              alt="Emanuel Boran mit dem Boran Webdesign Markenbild."
+              width={1600}
+              height={900}
+              sizes="(max-width: 760px) 100vw, 1240px"
+              className={styles.heroImage}
+            />
+          </motion.div>
 
-          <figcaption className={styles.heroCaption}>
+          <motion.figcaption
+            initial={{
+              opacity: 0,
+              x: -16,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.34,
+            }}
+            transition={{
+              duration: 0.46,
+              delay: 0.42,
+              ease: ENTER_EASE,
+            }}
+            className={styles.heroCaption}
+          >
             SOLO WEBDESIGNER
-          </figcaption>
-        </figure>
+          </motion.figcaption>
+        </motion.figure>
       </div>
 
-      <div className={styles.signalRail}>
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 18,
+          filter: "blur(5px)",
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+        }}
+        viewport={{
+          once: true,
+          amount: 0.35,
+        }}
+        transition={{
+          duration: 0.58,
+          delay: 0.08,
+          ease: ENTER_EASE,
+        }}
+        className={styles.signalRail}
+        aria-label="Vorteile der Zusammenarbeit"
+      >
         <div className={styles.signalGlow} />
 
         <div className={styles.signalTrack}>
           <div className={styles.signalSet}>
-            <span>UNABHÄNGIGER WEBDESIGNER</span>
-            <i />
-            <span>DIREKTER AUSTAUSCH</span>
-            <i />
-            <span>EINE VERANTWORTUNG</span>
-            <i />
-            <span>VON DER IDEE BIS LIVE</span>
-            <i />
+            {railItems.map((item) => (
+              <span key={item}>
+                {item}
+                <i />
+              </span>
+            ))}
           </div>
 
           <div className={styles.signalSet} aria-hidden="true">
-            <span>UNABHÄNGIGER WEBDESIGNER</span>
-            <i />
-            <span>DIREKTER AUSTAUSCH</span>
-            <i />
-            <span>EINE VERANTWORTUNG</span>
-            <i />
-            <span>VON DER IDEE BIS LIVE</span>
-            <i />
+            {railItems.map((item) => (
+              <span key={`duplicate-${item}`}>
+                {item}
+                <i />
+              </span>
+            ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <div className={styles.container}>
-        <div className={styles.introGrid}>
+        <div ref={introRef} className={styles.introGrid}>
           <div>
-            <p className={styles.eyebrow}>EIN DIREKTER WEG</p>
+            <motion.p
+              initial={{
+                opacity: 0,
+                y: 14,
+                filter: "blur(5px)",
+              }}
+              animate={
+                introInView
+                  ? {
+                      opacity: 1,
+                      y: 0,
+                      filter: "blur(0px)",
+                    }
+                  : {
+                      opacity: 0,
+                      y: 14,
+                      filter: "blur(5px)",
+                    }
+              }
+              transition={{
+                duration: 0.46,
+                delay: 0.02,
+                ease: ENTER_EASE,
+              }}
+              className={styles.eyebrow}
+            >
+              EIN DIREKTER WEG
+            </motion.p>
 
             <h2 className={styles.mainTitle}>
-              Jede Website trägt auch meinen Namen.
-              <span>Deshalb muss sie überzeugen.</span>
+              <MaskLine active={introInView} delay={0.08}>
+                Sie arbeiten direkt
+              </MaskLine>
+
+              <MaskLine active={introInView} delay={0.16}>
+                mit der Person,
+              </MaskLine>
+
+              <MaskLine active={introInView} delay={0.24} tone="accentDark">
+                die Ihre Website verantwortet.
+              </MaskLine>
             </h2>
           </div>
 
-          <div className={styles.introCopy}>
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: 34,
+              y: 14,
+              filter: "blur(8px)",
+            }}
+            animate={
+              introInView
+                ? {
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    filter: "blur(0px)",
+                  }
+                : {
+                    opacity: 0,
+                    x: 34,
+                    y: 14,
+                    filter: "blur(8px)",
+                  }
+            }
+            transition={{
+              duration: 0.68,
+              delay: 0.28,
+              ease: ENTER_EASE,
+            }}
+            className={styles.introCopy}
+          >
             <p>
-              Ich bin Emanuel Boran, Gründer von Boran Webdesign. Als
-              unabhängiger Webdesigner arbeite ich direkt mit Unternehmen,
-              deren Qualität offline längst sichtbar ist.
+              Ich bin Emanuel Boran, Gründer von Boran Webdesign. Ich arbeite
+              bewusst nicht wie eine klassische Agentur mit wechselnden
+              Ansprechpartnern, internen Übergaben und komplizierten Abläufen.
             </p>
 
             <p>
-              Vom ersten Gespräch bis zum Launch sprechen Sie mit der Person,
-              die Ihre Website strategisch entwickelt, gestaltet und technisch
-              umsetzt. Keine Übergaben zwischen Abteilungen. Kein anonymer
-              Prozess. Eine klare Verantwortung.
+              Strategie, Design und technische Umsetzung kommen direkt aus
+              einer Hand. Vom ersten Gespräch bis zum Launch sprechen Sie mit
+              derselben Person, die Ihren digitalen Auftritt plant, gestaltet
+              und umsetzt.
             </p>
-          </div>
+
+            <ul className={styles.proofList}>
+              {proofPoints.map((point, index) => (
+                <motion.li
+                  key={point}
+                  initial={{
+                    opacity: 0,
+                    x: 16,
+                    filter: "blur(4px)",
+                  }}
+                  animate={
+                    introInView
+                      ? {
+                          opacity: 1,
+                          x: 0,
+                          filter: "blur(0px)",
+                        }
+                      : {
+                          opacity: 0,
+                          x: 16,
+                          filter: "blur(4px)",
+                        }
+                  }
+                  transition={{
+                    duration: 0.42,
+                    delay: 0.52 + index * 0.08,
+                    ease: ENTER_EASE,
+                  }}
+                >
+                  {point}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
 
-        <div className={styles.methodHeading}>
-          <p className={styles.eyebrow}>
-            WAS HINTER EINEM STARKEN AUFTRITT STECKT
-          </p>
-
-          <h3>
-            Mehr als Design.
-            <span>Strategie, Technik und Sichtbarkeit.</span>
-          </h3>
-        </div>
-
-        <div className={styles.cardRail}>
-          {capabilities.map((capability) => (
-            <article
-              key={capability.number}
-              className={`${styles.methodCard} ${capability.className}`}
+        <motion.article
+          ref={workRef}
+          initial={{
+            opacity: 0,
+            y: 34,
+            scale: 0.985,
+          }}
+          animate={
+            workInView
+              ? {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }
+              : {
+                  opacity: 0,
+                  y: 34,
+                  scale: 0.985,
+                }
+          }
+          transition={{
+            duration: 0.72,
+            ease: ENTER_EASE,
+          }}
+          className={styles.workProof}
+        >
+          <motion.figure
+            initial={{
+              opacity: 0,
+              x: -26,
+              scale: 0.985,
+            }}
+            animate={
+              workInView
+                ? {
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                  }
+                : {
+                    opacity: 0,
+                    x: -26,
+                    scale: 0.985,
+                  }
+            }
+            transition={{
+              duration: 0.78,
+              delay: 0.08,
+              ease: ENTER_EASE,
+            }}
+            className={styles.workImageWrap}
+          >
+            <motion.div
+              initial={{
+                scale: 1.035,
+                x: -10,
+              }}
+              animate={
+                workInView
+                  ? {
+                      scale: 1,
+                      x: 0,
+                    }
+                  : {
+                      scale: 1.035,
+                      x: -10,
+                    }
+              }
+              transition={{
+                duration: 1.05,
+                delay: 0.12,
+                ease: ENTER_EASE,
+              }}
+              style={{
+                width: "100%",
+                height: "100%",
+                willChange: "transform",
+                transform: "translateZ(0)",
+              }}
             >
-              <div className={styles.cardVisual}>
-                <span className={styles.cardNumber}>
-                  {capability.number}
-                </span>
+              <Image
+                src="/emanuel-work.png"
+                alt="Emanuel Boran arbeitet an einem Website-Projekt."
+                width={1600}
+                height={900}
+                sizes="(max-width: 900px) 100vw, 620px"
+                className={styles.workImage}
+              />
+            </motion.div>
 
-                <div className={styles.visualSystem} aria-hidden="true">
-                  <span className={styles.systemRingOne} />
-                  <span className={styles.systemRingTwo} />
-                  <span className={styles.systemFrameOne} />
-                  <span className={styles.systemFrameTwo} />
-                  <span className={styles.systemSignal} />
-                </div>
+            <motion.figcaption
+              initial={{
+                opacity: 0,
+                x: 14,
+              }}
+              animate={
+                workInView
+                  ? {
+                      opacity: 1,
+                      x: 0,
+                    }
+                  : {
+                      opacity: 0,
+                      x: 14,
+                    }
+              }
+              transition={{
+                duration: 0.46,
+                delay: 0.48,
+                ease: ENTER_EASE,
+              }}
+              className={styles.workImageCaption}
+            >
+              VON DER IDEE BIS LIVE
+            </motion.figcaption>
+          </motion.figure>
 
-                <span className={styles.visualLabel}>
-                  BW / {capability.number}
-                </span>
-              </div>
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: 34,
+              filter: "blur(7px)",
+            }}
+            animate={
+              workInView
+                ? {
+                    opacity: 1,
+                    x: 0,
+                    filter: "blur(0px)",
+                  }
+                : {
+                    opacity: 0,
+                    x: 34,
+                    filter: "blur(7px)",
+                  }
+            }
+            transition={{
+              duration: 0.68,
+              delay: 0.2,
+              ease: ENTER_EASE,
+            }}
+            className={styles.workCopy}
+          >
+            <motion.p
+              initial={{
+                opacity: 0,
+                y: 12,
+                filter: "blur(4px)",
+              }}
+              animate={
+                workInView
+                  ? {
+                      opacity: 1,
+                      y: 0,
+                      filter: "blur(0px)",
+                    }
+                  : {
+                      opacity: 0,
+                      y: 12,
+                      filter: "blur(4px)",
+                    }
+              }
+              transition={{
+                duration: 0.42,
+                delay: 0.32,
+                ease: ENTER_EASE,
+              }}
+              className={styles.workEyebrow}
+            >
+              KOSTENLOSE WEBSITE-VORSCHAU
+            </motion.p>
 
-              <div className={styles.cardContent}>
-                <p>{capability.label}</p>
-                <h4>{capability.title}</h4>
-                <span>{capability.text}</span>
-              </div>
-            </article>
-          ))}
-        </div>
+            <h3>
+              <MaskLine active={workInView} delay={0.4} tone="light">
+                Erst sehen.
+              </MaskLine>
 
-        <div className={styles.workProof}>
-          <div className={styles.workImageWrap}>
-            <Image
-              src="/emanuel-work.png"
-              alt="Emanuel Boran arbeitet an einem Website-Projekt."
-              width={1600}
-              height={900}
-              sizes="(max-width: 760px) 100vw, 700px"
-              className={styles.workImage}
-            />
+              <MaskLine active={workInView} delay={0.5} tone="accentLight">
+                Dann entscheiden.
+              </MaskLine>
+            </h3>
 
-            <span className={styles.workImageCaption}>
-              BEHIND THE WORK
-            </span>
-          </div>
+            <motion.p
+              initial={{
+                opacity: 0,
+                y: 16,
+                filter: "blur(5px)",
+              }}
+              animate={
+                workInView
+                  ? {
+                      opacity: 1,
+                      y: 0,
+                      filter: "blur(0px)",
+                    }
+                  : {
+                      opacity: 0,
+                      y: 16,
+                      filter: "blur(5px)",
+                    }
+              }
+              transition={{
+                duration: 0.5,
+                delay: 0.66,
+                ease: ENTER_EASE,
+              }}
+            >
+              Auf Wunsch entwickle ich zuerst eine visuelle Vorschau für Ihre
+              Website — kostenlos und unverbindlich. Gefällt Ihnen die
+              Richtung, setzen wir sie gemeinsam um. Wenn nicht, entstehen
+              Ihnen keine Kosten.
+            </motion.p>
 
-          <div className={styles.workCopy}>
-  <p className={styles.workEyebrow}>
-    BEHIND THE WORK.
-  </p>
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 18,
+                filter: "blur(5px)",
+              }}
+              animate={
+                workInView
+                  ? {
+                      opacity: 1,
+                      y: 0,
+                      filter: "blur(0px)",
+                    }
+                  : {
+                      opacity: 0,
+                      y: 18,
+                      filter: "blur(5px)",
+                    }
+              }
+              transition={{
+                duration: 0.5,
+                delay: 0.8,
+                ease: ENTER_EASE,
+              }}
+              className={styles.processNote}
+            >
+              <span className={styles.processDot} />
+              <p>
+                <strong>Klare nächste Schritte.</strong>
+                <br />
+                Vorschau, Feedback und Umsetzung — ohne unnötige Schleifen.
+              </p>
+            </motion.div>
 
-  <h3>
-    Details, die nicht zufällig sind.
-  </h3>
-
-  <p>
-    Vom Aufbau der Inhalte bis zur technischen Qualität wird jede
-    Entscheidung darauf geprüft, ob sie Ihre Marke klarer,
-    nutzerfreundlicher und sichtbarer macht.
-  </p>
-
-  <div className={styles.workSteps}>
-    <span>POSITIONIERUNG</span>
-    <span>DESIGN</span>
-    <span>TECHNIK</span>
-    <span>SEO-BASIS</span>
-    <span>LAUNCH</span>
-  </div>
-</div>
-        </div>
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 18,
+              }}
+              animate={
+                workInView
+                  ? {
+                      opacity: 1,
+                      y: 0,
+                    }
+                  : {
+                      opacity: 0,
+                      y: 18,
+                    }
+              }
+              transition={{
+                duration: 0.48,
+                delay: 0.94,
+                ease: ENTER_EASE,
+              }}
+              className={styles.workSteps}
+            >
+              {processSteps.map((step) => (
+                <span key={step}>{step}</span>
+              ))}
+            </motion.div>
+          </motion.div>
+        </motion.article>
       </div>
     </section>
   );
