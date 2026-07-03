@@ -12,7 +12,7 @@ function isLocalHost(host: string) {
   );
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const host = request.headers.get("host")?.toLowerCase() ?? "";
 
   if (!host || host === CANONICAL_HOST || isLocalHost(host)) {
@@ -28,8 +28,10 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(url, 308);
 }
 
+export default proxy;
+
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|favicon-32.png|apple-touch-icon.png|icon-192.png|icon-512.png|site.webmanifest|robots.txt|sitemap.xml).*)",
+    "/((?!_next/static|_next/image|favicon-32.png|apple-touch-icon.png|icon-192.png|icon-512.png|site.webmanifest|robots.txt|sitemap.xml).*)",
   ],
 };
