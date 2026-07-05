@@ -486,11 +486,11 @@ export default function FinalCTAReveal() {
               BEVOR WIR STARTEN
             </p>
 
-            <h2 className="text-center font-serif text-[clamp(2.7rem,12vw,5.4rem)] leading-[0.92] tracking-[-0.05em] text-white md:text-left">
-  <span className="block">Erst die</span>
-  <span className="block">Vorschau.</span>
-  <span className="block text-[#db3150]">Dann Ihre</span>
-  <span className="block w-full text-center text-[#db3150] md:w-auto md:text-left">
+            <h2 className="bw-final-panel-title">
+  <span>Erst die</span>
+  <span>Vorschau.</span>
+  <span className="bw-final-panel-accent">Dann Ihre</span>
+  <span className="bw-final-panel-accent bw-final-panel-decision">
     Entscheidung.
   </span>
 </h2>
@@ -1095,23 +1095,36 @@ transition: opacity 120ms linear;
           text-align: center;
         }
 
-        .bw-final-panel h2 {
-          max-width: 8.8ch;
-          margin: 28px auto 0;
-          color: #fffdfb;
-          font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
-          font-size: clamp(72px, 8.6vw, 136px);
-          font-weight: 400;
-          line-height: 0.84;
-          letter-spacing: -0.086em;
-        }
+        .bw-final-panel-title {
+  display: grid;
+  justify-items: center;
+  width: min(100%, 980px);
+  max-width: none;
+  margin: 28px auto 0;
+  color: #fffdfb;
+  font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+  font-size: clamp(72px, 8.6vw, 136px);
+  font-weight: 400;
+  line-height: 0.84;
+  letter-spacing: -0.086em;
+  text-align: center;
+}
 
-        .bw-final-panel h2 strong {
-          display: block;
-          color: #db3150;
-          font: inherit;
-          text-shadow: 0 0 34px rgba(219, 49, 80, 0.18);
-        }
+.bw-final-panel-title span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.bw-final-panel-accent {
+  color: #db3150;
+  text-shadow: 0 0 34px rgba(219, 49, 80, 0.18);
+}
+
+.bw-final-panel-decision {
+  transform: translateX(-0.015em);
+}
 
         .bw-final-panel-copy {
           max-width: 520px;
@@ -1243,12 +1256,20 @@ transition: opacity 120ms linear;
             letter-spacing: 0.15em;
           }
 
-          .bw-final-panel h2 {
-            max-width: 8.4ch;
-            margin-top: 24px;
-            font-size: clamp(48px, 14.2vw, 62px);
-            line-height: 0.88;
-          }
+          .bw-final-panel-title {
+  width: min(100%, 640px);
+  max-width: none;
+  margin-top: 24px;
+  font-size: clamp(47px, 13.45vw, 61px);
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+  text-align: center;
+}
+
+.bw-final-panel-decision {
+  font-size: 0.92em;
+  transform: translateX(-0.01em);
+}
 
           .bw-final-panel-copy {
             max-width: 310px;
