@@ -478,13 +478,14 @@ export default function AboutSection() {
               }}
             >
               <Image
-                src="/emanuel-work.png"
-                alt="Emanuel Boran arbeitet an einem Website-Projekt."
-                width={1600}
-                height={900}
-                sizes="(max-width: 900px) 100vw, 620px"
-                className={styles.workImage}
-              />
+  src="/emanuel-work-v2.png"
+  alt="Emanuel Boran arbeitet an einem Website-Projekt."
+  width={1600}
+  height={900}
+  sizes="(max-width: 900px) 100vw, 1180px"
+  quality={96}
+  className={styles.workImage}
+/>
             </motion.div>
 
             <motion.figcaption
